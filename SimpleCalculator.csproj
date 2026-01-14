@@ -1,0 +1,107 @@
+namespace SimpleCalculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("=== Simple Calculator ===\n");
+            
+            while (true)
+            {
+                PrintMenu();
+                var choice = Console.ReadLine();
+                
+                if (choice == "7") break;
+                
+                try
+                {
+                    ProcessChoice(choice);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}\n");
+                }
+            }
+            
+            Console.WriteLine("\nGoodbye!");
+        }
+        
+        static void PrintMenu()
+        {
+            Console.WriteLine("Choose operation:");
+            Console.WriteLine("1. Add");
+            Console.WriteLine("2. Subtract");
+            Console.WriteLine("3. Multiply");
+            Console.WriteLine("4. Divide");
+            Console.WriteLine("5. Power");
+            Console.WriteLine("6. Square Root");
+            Console.WriteLine("7. Exit");
+            Console.Write("Enter your choice (1-7): ");
+        }
+        
+        static void ProcessChoice(string? choice)
+        {
+            double a, b, result;
+            
+            switch (choice)
+            {
+                case "1":
+                    (a, b) = GetTwoNumbers();
+                    result = Calculator.Add(a, b);
+                    Console.WriteLine($"Result: {a} + {b} = {result}\n");
+                    break;
+                    
+                case "2":
+                    (a, b) = GetTwoNumbers();
+                    result = Calculator.Subtract(a, b);
+                    Console.WriteLine($"Result: {a} - {b} = {result}\n");
+                    break;
+                    
+                case "3":
+                    (a, b) = GetTwoNumbers();
+                    result = Calculator.Multiply(a, b);
+                    Console.WriteLine($"Result: {a} × {b} = {result}\n");
+                    break;
+                    
+                case "4":
+                    (a, b) = GetTwoNumbers();
+                    result = Calculator.Divide(a, b);
+                    Console.WriteLine($"Result: {a} ÷ {b} = {result}\n");
+                    break;
+                    
+                case "5":
+                    (a, b) = GetTwoNumbers();
+                    result = Calculator.Power(a, b);
+                    Console.WriteLine($"Result: {a} ^ {b} = {result}\n");
+                    break;
+                    
+                case "6":
+                    a = GetOneNumber();
+                    result = Calculator.SquareRoot(a);
+                    Console.WriteLine($"Result: √{a} = {result}\n");
+                    break;
+                    
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.\n");
+                    break;
+            }
+        }
+        
+        static (double, double) GetTwoNumbers()
+        {
+            Console.Write("Enter first number: ");
+            double a = Convert.ToDouble(Console.ReadLine());
+            
+            Console.Write("Enter second number: ");
+            double b = Convert.ToDouble(Console.ReadLine());
+            
+            return (a, b);
+        }
+        
+        static double GetOneNumber()
+        {
+            Console.Write("Enter number: ");
+            return Convert.ToDouble(Console.ReadLine());
+        }
+    }
+}
